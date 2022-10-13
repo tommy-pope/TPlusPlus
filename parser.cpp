@@ -109,7 +109,7 @@ int parseBuff() {
 int parseWord(string word) {
 	int left = 0;
 	int right = 0;
-	int len = word.length();
+	int len = (int)word.length();
 
 	while (right <= len && left <= right) {
 		if (isBreak(word[right])) {
