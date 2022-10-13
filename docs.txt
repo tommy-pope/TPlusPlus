@@ -1,0 +1,74 @@
+T++ Basics:
+
+Creating a variable:
+<vartype> .<varname> ~ <value>
+
+Examples:
+
+nvar .x ~ (5) // creates a variable that stores a number, and sets value to 5
+svar .y ~ "Hello" // creates a variable that stores a string, and sets value to "Hello"
+
+nvar .x ~ (3)
+nvar .y ~ (4)
+nvar .z ~ [ nvar .x + nvar .y ]
+
+// creates new variable .z, opens an expression that adds .x and .y together,
+// sets resulting value to .z
+
+Pointers/Arrays:
+
+
+
+
+Conditionals:
+? <vartype> .<varname> <operator> <vartype> .<varname> / code goes here \
+
+Examples:
+
+nvar .x ~ (1)
+nvar .y ~ (2)
+? nvar .x < nvar .y / 
+nvar .z ~ [ nvar .x + nvar .y ] 
+\
+
+
+
+Loops:
+sloop / (code here) \ eloop
+
+
+leave - keyword that exits loop
+
+
+Example:
+
+nvar .x ~ (0)
+nvar .z ~ (1)
+nvar .y ~ (10)
+
+sloop /
+
+print nvar .x
+nvar .x ~ [ nvar .x + nvar .z ]
+
+? nvar .x > nvar .y /
+leave
+\
+
+\ eloop
+
+// prints numbers 0 to 10
+
+
+
+Basic Functions :
+
+print <value> // where value is either a string literal or a variable
+
+Examples:
+
+print "Hello" // outputs - Hello
+
+nvar .x ~ (1)
+print nvar .x // outputs - 1
+
