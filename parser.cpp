@@ -578,51 +578,64 @@ int translate() {
 				return -1;
 			}
 
-			if (tokenArr[i + 2] != ASSIGN_OP) {
-				cout << "Missing ASSIGN OPERATOR." << endl;
+			if (tokenArr[i + 2] != ASSIGN_OP && tokenArr[i + 2] != ADD_OP) {
+				cout << "Missing ASSIGN or ADD OPERATOR." << endl;
 				return -1;
-			}
+			} 
 
-			if (tokenArr[i + 3] != NUMBER_VAR) {
-				cout << "Missing POINTER TYPE" << endl;
-				return -1;
-			}
-
-			if (tokenArr[i + 4] != NUMBER_LIT) {
-				cout << "Missing POINTER SIZE" << endl;
-			}
-			int lCount = 0;
-
-			for (int x = 0; x < i + 4; x++) {
-				if (tokenArr[x] == NUMBER_LIT) {
-					lCount++;
+			if (tokenArr[i + 2] == ASSIGN_OP) {
+				if (tokenArr[i + 3] != NUMBER_VAR) {
+					cout << "Missing POINTER TYPE" << endl;
+					return -1;
 				}
-			}
 
-			lCount = numLitContainer[lCount];
+				if (tokenArr[i + 4] != NUMBER_LIT) {
+					cout << "Missing POINTER SIZE" << endl;
+				}
+			
+				int lCount = 0;
 
-			for (int x = -1; x < lCount; x++) {
+				for (int x = 0; x < i + 4; x++) {
+					if (tokenArr[x] == NUMBER_LIT) {
+						lCount++;
+					}
+				}
 
-				if (x < 0) {
-					nvarValues[nvarValuesCounter] = lCount;
+				lCount = numLitContainer[lCount];
+
+				for (int x = -1; x < lCount; x++) {
+
+					if (x < 0) {
+						nvarValues[nvarValuesCounter] = lCount;
+						nvarValuesCounter++;
+						continue;
+					}
+
+					nvarValues[nvarValuesCounter] = -1;
 					nvarValuesCounter++;
-					continue;
 				}
 
-				nvarValues[nvarValuesCounter] = -1;
-				nvarValuesCounter++;
+				pvarValues[pvarValuesCounter] = nvarValuesCounter - lCount - 1;
+				pvarValuesCounter++;
+
+				for (int c = 0; c < nvarValuesCounter; c++) {
+					cout << nvarValues[c] << endl;
+				}
+
+				cout << "Pointer: " << pvarValues[0] << endl;
+
+				i += 4;
 			}
+			else {
+				if (tokenArr[i + 3] != ASSIGN_OP) {
+					return -1;
+				}
 
-			pvarValues[pvarValuesCounter] = nvarValuesCounter - lCount - 1;
-			pvarValuesCounter++;
+				
 
-			for (int c = 0; c < nvarValuesCounter; c++) {
-				cout << nvarValues[c] << endl;
+
+
 			}
-
-			cout << "Pointer: " << pvarValues[0] << endl;
-
-			i += 4;
 		}
 		else if (token == CONDITIONAL) {
 			if (tokenArr[i + 1] != NUMBER_VAR) {
